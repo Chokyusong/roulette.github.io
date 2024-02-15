@@ -1,4 +1,4 @@
-const correctPassword = "muse"; // 여기에 원하는 4자리 비밀번호를 설정하세요
+const correctPassword = "2565"; // 여기에 원하는 4자리 비밀번호를 설정하세요
 
 function checkPassword() {
     const inputPassword = document.getElementById('password').value;
