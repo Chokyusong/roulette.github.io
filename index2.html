@@ -7,12 +7,11 @@
 		<link rel="stylesheet" type="text/css" href="./roulette.css">
 		<script type="text/javascript" src="./lib/jquery-3.2.0.min.js"></script>
 		<script type="text/javascript" src="./lib/jquery.color-2.1.2.min.js"></script>
+		
 	</head>
 	<body style="background: rgb(255, 255, 255);">
 
 		<div class="container">
-
-			
 			<div class="wrap">
 				<h1 contenteditable="true" spellcheck="false">행운의 돌림판</h1>
 				<canvas width="600" height="600" class="roulette">지원하지 않는 브라우저입니다. Google Chrome 최신 버전을 사용해주세요.</canvas>
@@ -35,38 +34,48 @@
 		</div>
 		<div id="result" style="display: none;"></div>
 		<script type="text/javascript" src="./roulette.js"></script>
-		<div class="save-container">
-			<button id="saveButton">저장</button>
-			<button id="loadButton">불러오기</button>
+		<!-- <div class="save-container">
+			<button id="saveButton" >저장</button>
+			<button id="loadButton" >불러오기</button> -->
 			<input type="file" id="fileInput" style="display: none;"/>
-		</div>
+		<!-- </div> -->
 	</body>
-	<script>document.getElementById('saveButton').addEventListener('click', function() {
-		var data = document.querySelector('ul').innerHTML;
-		var blob = new Blob([data], {type: 'text/html'});
-		var url = URL.createObjectURL(blob);
-		var a = document.createElement('a');
-		a.href = url;
-		a.download = 'listData.html';
-		document.body.appendChild(a);
-		a.click();
-		document.body.removeChild(a);
-	});
-	
-	document.getElementById('loadButton').addEventListener('click', function() {
-		document.getElementById('fileInput').click();
-	});
-	
-	document.getElementById('fileInput').addEventListener('change', function(e) {
-		var file = e.target.files[0];
-		if (!file) {
-			return;
-		}
-		var reader = new FileReader();
-		reader.onload = function(e) {
-			document.querySelector('ul').innerHTML = e.target.result;
-		};
-		reader.readAsText(file);
-	});
+	<script>
+		document.addEventListener('keydown', function(event) {
+			if (event.ctrlKey && event.altKey && event.keyCode === 97) { // 숫자패드 1
+				// '저장' 기능을 수행합니다.
+				var data = document.querySelector('ul').innerHTML;
+				var blob = new Blob([data], {type: 'text/html'});
+				var url = URL.createObjectURL(blob);
+				var a = document.createElement('a');
+				a.href = url;
+				a.download = 'listData.html';
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+			}
+			if (event.ctrlKey && event.altKey && event.keyCode === 98) { // 숫자패드 2
+				// 불러오기 기능을 수행합니다.
+				document.getElementById('fileInput').click();
+			}
+		});
+		document.getElementById('fileInput').addEventListener('change', function(e) {
+			var file = e.target.files[0];
+			if (!file) {
+				console.log('파일이 선택되지 않았습니다.');
+				return;
+			}
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				// 파일의 내용을 웹 페이지에 로드합니다.
+				document.querySelector('ul').innerHTML = e.target.result;
+			};
+			reader.onerror = function(e) {
+				// 파일 읽기에 실패했을 때 오류를 콘솔에 출력합니다.
+				console.error('파일을 읽는 도중 오류가 발생했습니다.',event);
+			};
+			reader.readAsText(file); // 파일을 텍스트 형식으로 읽습니다.
+			});
+
 	</script>
 </html>
