@@ -30,12 +30,7 @@ h1 {
 	color: #37474f;
 	/*text-shadow: -1px 0 #607D8B, 0 1px #607D8B, 1px 0 #607D8B, 0 -1px #607D8B;*/
 }
-.save-container {
-	position: fixed; /* 고정 위치 */
-	bottom: 0; /* 아래쪽 */
-	right: 0; /* 오른쪽 */
-	margin: 10px; /* 주변 여백 */
-}
+
 .container {
 	position: absolute;
 	top: 0;
